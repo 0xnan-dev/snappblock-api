@@ -1,0 +1,15 @@
+{
+	"verbose": true,
+	"ignore": [
+		"node_modules",
+		"dist",
+		"*.http",
+		"__tests__",
+		"test"
+	],
+	"watch": [
+		"./src"
+	],
+	"exec": "ts-node --files ./src/main.ts",
+	"ext": "ts json"
+}

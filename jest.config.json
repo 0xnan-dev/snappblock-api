@@ -1,0 +1,34 @@
+{
+  "moduleFileExtensions": [
+    "ts",
+    "js",
+    "json"
+  ],
+  "coverageReporters": [
+    "json",
+    "lcov"
+  ],
+  "collectCoverageFrom": [
+    "apps/**/src/**/*.ts",
+    "!apps/**/src/**/*.interface.ts",
+    "!apps/**/src/**/*.dto.ts",
+    "!apps/**/src/**/constants.ts"
+  ],
+  "coverageDirectory": "coverage",
+  "testPathIgnorePatterns": [
+    "<rootDir>/node_modules/"
+  ],
+  "transformIgnorePatterns": [
+    "<rootDir>/node_modules/"
+  ],
+  "testRegex": ".spec.ts$",
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "globals": {
+    "ts-jest": {
+      "tsconfig": "tsconfig.json",
+      "diagnostics": false
+    }
+  }
+}
