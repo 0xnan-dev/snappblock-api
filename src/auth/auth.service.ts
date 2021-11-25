@@ -3,23 +3,27 @@ import createHash from 'create-hash';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { GenerateTokenPayload } from './interfaces';
 import { JwtService } from './jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService
+  ) {}
 
   public validate(publicKey: string, signature: string): boolean {
-    this.logger.log('validateAddress');
+    this.logger.verbose('validateAddress');
 
     const msgSha256 = createHash('sha256');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const message = this.configService.get<string>('auth.message')!;
 
-    msgSha256.update('Hello World');
+    msgSha256.update(message);
 
     const msgHash = msgSha256.digest();
-
-    console.log(msgHash, signature, publicKey);
 
     const valid = secp256k1.ecdsaVerify(
       Buffer.from(signature, 'base64'),

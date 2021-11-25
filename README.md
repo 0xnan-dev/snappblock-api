@@ -1,3 +1,3 @@
 # Snapblock API
 
-An API to communicate with ISCN and IPFS
+API to communicates with ISCN and IPFS

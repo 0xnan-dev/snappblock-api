@@ -5,9 +5,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { roles } from './api.roles';
 import { AuthModule } from './auth/auth.module';
 import { configFactory, configSchema } from './config/configuration';
-import { LegacySystemModule } from './legacy-system';
 import { PingController } from './ping/ping.controller';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,8 +17,6 @@ import { UsersModule } from './users/users.module';
       load: [configFactory],
     }),
     AuthModule,
-    UsersModule,
-    LegacySystemModule,
   ],
   controllers: [PingController],
 })

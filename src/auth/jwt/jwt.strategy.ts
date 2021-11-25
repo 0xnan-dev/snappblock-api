@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
@@ -7,7 +7,13 @@ import { UserInfo } from '../interfaces/user-info.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(configService: ConfigService, public readonly authService: AuthService) {
+  private readonly logger = new Logger(JwtStrategy.name);
+
+  constructor(
+    @Inject(forwardRef(() => AuthService))
+    public readonly authService: AuthService,
+    configService: ConfigService
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -17,6 +23,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   public async validate(payload: JwtAccessToken): Promise<UserInfo> {
     const { sub, signature, roles } = payload;
+
+    this.logger.verbose('validate', sub, signature, roles);
 
     const valid = this.authService.validate(sub, signature);
 

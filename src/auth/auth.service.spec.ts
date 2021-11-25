@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { JwtService } from './jwt';
@@ -17,6 +18,12 @@ describe('AuthService', () => {
         {
           provide: JwtService,
           useClass: jest.fn(() => ({})),
+        },
+        {
+          provide: ConfigService,
+          useClass: jest.fn(() => ({
+            get: () => 'Hello World',
+          })),
         },
       ],
       imports: [],
