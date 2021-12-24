@@ -3,9 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { JwtService } from './jwt';
 
-const PUBLIC_KEY = 'A0ZGrlBHMWtCMNAIbIrOxofwCxzZ0dxjT2yzWKwKmo//';
+const PUBLIC_KEY = 'A4Fj1Y4k77Qaxuy496CHYB2rpfWXkM3LCnlyrU8eKbH7';
+const PRIVATE_KEY = '69b4e47d3aa61ad6184493529cd0feb0d2dfb55ea31aa9799af42607de3cd1a9';
 const SIGNATURE =
-  'u7aaxlSRItgmXH2je0jbLUSmVj/uBA8niiQsLyXSH0Qf82OVAKqHburb6uZ0vMAOsvLUUadQTSyY58aGH6p9wg==';
+  'sF49w4adKMUaV9drJa9+1U/SQDyKIHxvus4LDaLROjYR1fMlUi+lEH+EPS0ApPZNABJZEyKw1EJ2vIsaeSH7dQ==';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -32,11 +33,13 @@ describe('AuthService', () => {
     service = module.get<AuthService>(AuthService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
   it('should return true with valid signature', () => {
     expect(service.validate(PUBLIC_KEY, SIGNATURE)).toBeTruthy();
+  });
+
+  it('should sign a message with public key', () => {
+    const signature = service.signMsg(PRIVATE_KEY);
+
+    expect(signature).toBe(SIGNATURE);
   });
 });

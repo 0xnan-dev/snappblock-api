@@ -5,6 +5,7 @@ import {
   Post,
   Body,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
@@ -18,6 +19,8 @@ import { Role } from './interfaces/role.enum';
   version: '1',
 })
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
@@ -29,7 +32,13 @@ export class AuthController {
     description: 'Authorize and returns access tokens',
     type: TokenOutputDto,
   })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Unauthorized',
+  })
   public async login(@Body() { publicKey, signature }: LoginInputDto): Promise<TokenOutputDto> {
+    this.logger.verbose('login', { publicKey, signature });
+
     const roles = [Role.USER];
 
     const userWithToken = await this.authService.login({

@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   public async validate(payload: JwtAccessToken): Promise<UserInfo> {
     const { sub, signature, roles } = payload;
 
-    this.logger.verbose('validate', sub, signature, roles);
+    this.logger.verbose('validate', payload);
 
     const valid = this.authService.validate(sub, signature);
 

@@ -35,8 +35,8 @@ export class JwtService {
     };
   }
 
-  private signAccessToken({ publicKey, roles }: AccessTokenPayload) {
-    this.logger.log('signAccessToken');
+  private signAccessToken({ publicKey, signature, roles }: AccessTokenPayload) {
+    this.logger.log('signAccessToken', { publicKey, signature, roles });
 
     const expiresIn = this.configService.get<number>('jwtExpiresIn');
 
@@ -44,6 +44,7 @@ export class JwtService {
       {
         sub: publicKey,
         roles,
+        signature,
       },
       {
         expiresIn,

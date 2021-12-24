@@ -1,8 +1,8 @@
 {
-  "name": "snapblock-api",
+  "name": "snappblock-api",
   "version": "1.0.0",
   "private": true,
-  "description": "Snapblock API",
+  "description": "Snappblock API",
   "author": "Pager Chan<0xtaipoian@protonmail.com>",
   "main": "dist/api.js",
   "scripts": {
@@ -30,8 +30,12 @@
     "accesscontrol": "2.2.1",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
+    "cosmjs-types": "0.3.0",
     "create-hash": "1.2.0",
     "express": "4.17.1",
+    "ipfs-core-types": "0.8.4",
+    "ipfs-http-client": "54.0.2",
+    "long": "5.2.0",
     "nest-access-control": "2.0.2",
     "nestjs-pino": "2.3.1",
     "nestjs-prisma": "0.14.3",
@@ -79,5 +83,8 @@
     "ts-jest": "27.0.7",
     "ts-node": "10.4.0",
     "typescript": "4.5.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

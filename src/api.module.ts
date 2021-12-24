@@ -5,6 +5,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { roles } from './api.roles';
 import { AuthModule } from './auth/auth.module';
 import { configFactory, configSchema } from './config/configuration';
+import { IPFSModule } from './ipfs/ipfs.module';
 import { PingController } from './ping/ping.controller';
 
 @Module({
@@ -17,6 +18,7 @@ import { PingController } from './ping/ping.controller';
       load: [configFactory],
     }),
     AuthModule,
+    IPFSModule,
   ],
   controllers: [PingController],
 })

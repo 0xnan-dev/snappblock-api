@@ -9,6 +9,9 @@ export const configSchema = Joi.object({
   JWT_SECRET_KEY: Joi.string().required(),
   JWT_EXPIRATION: Joi.alternatives(Joi.string(), Joi.number()).default('24d'),
   AUTH_MESSAGE: Joi.string().required(),
+  IPFS_HOST: Joi.string().required(),
+  IPFS_PORT: Joi.number().required(),
+  IPFS_PROTOCOL: Joi.string().required(),
 });
 
 export interface Config {
@@ -17,6 +20,11 @@ export interface Config {
   auth: {
     message: string;
   };
+  ipfs: {
+    host: string;
+    port: number;
+    protocol: string;
+  };
 }
 
 export const configFactory = (): Config => ({
@@ -24,5 +32,10 @@ export const configFactory = (): Config => ({
   jwtExpiresIn: process.env.JWT_EXPIRATION!,
   auth: {
     message: process.env.AUTH_MESSAGE!,
+  },
+  ipfs: {
+    host: process.env.IPFS_HOST!,
+    port: parseInt(process.env.IPFS_PORT!, 10),
+    protocol: process.env.IPFS_PROTOCOL!,
   },
 });

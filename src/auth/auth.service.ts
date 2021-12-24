@@ -24,7 +24,6 @@ export class AuthService {
     msgSha256.update(message);
 
     const msgHash = msgSha256.digest();
-
     const valid = secp256k1.ecdsaVerify(
       Buffer.from(signature, 'base64'),
       msgHash,
@@ -32,6 +31,21 @@ export class AuthService {
     );
 
     return valid;
+  }
+
+  public signMsg(privateKey: string): string {
+    const privkeyBytes = Buffer.from(privateKey, 'hex');
+    const msgSha256 = createHash('sha256');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const message = this.configService.get<string>('auth.message')!;
+
+    msgSha256.update(message);
+
+    const msgHash = msgSha256.digest();
+    const { signature: signatureArr } = secp256k1.ecdsaSign(msgHash, privkeyBytes);
+    const signature = Buffer.from(signatureArr).toString('base64');
+
+    return signature;
   }
 
   public async login(payload: GenerateTokenPayload) {

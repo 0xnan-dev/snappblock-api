@@ -9,7 +9,8 @@
       "ES2020",
       "ES2020.String",
       "ES2020.Promise",
-      "ES2020.Symbol.WellKnown"
+      "ES2020.Symbol.WellKnown",
+      "ESNext.AsyncIterable"
     ],
     "pretty": true,
     "sourceMap": true,
@@ -30,12 +31,7 @@
       "types",
       "node_modules/@types"
     ],
-    "baseUrl": ".",
-    "paths": {
-      "@ggc/*": [
-        "apps/*"
-      ]
-    }
+    "baseUrl": "."
   },
   "types": [
     "node",
