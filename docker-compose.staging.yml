@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  api:
+    container_name: api-staging
+    ports:
+      - '3001:3000'
+    env_file:
+      - .env
