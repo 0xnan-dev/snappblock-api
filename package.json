@@ -7,13 +7,13 @@
   "main": "dist/api.js",
   "scripts": {
     "prebuild": "yarn clean",
-    "build": "npx nest build -p tsconfig.build.json",
+    "build": "npx @nestjs/cli build -p tsconfig.build.json",
     "clean": "npx rimraf dist tsconfig.tsbuildinfo",
     "dev": "nodemon --config ./nodemon.json",
     "migrate:ci": "npx prisma migrate deploy",
     "migrate:dev": "npx prisma migrate dev",
     "seed": "npx prisma db seed",
-    "start": "npx nest start",
+    "start": "npx @nestjs/cli start",
     "test": "yarn test:spec && yarn test:e2e",
     "test:e2e": "jest apps/api/__tests__/e2e -c jest-e2e.config.json  --silent",
     "test:spec": "jest apps/api/src -c jest.config.json  --silent"
